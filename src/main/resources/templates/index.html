@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<nav>
+    <a href="/todo/add" class="btn btn-dark ">Add task</a>
+</nav>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Check box</th>
+        <th>Function</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="todo: ${todos}">
+        <td th:text="${todo.getId()}"></td>
+        <td th:text="${todo.getTitle()}"></td>
+        <td>
+            <form th:action="|/todo/changeStatus/${todo.getId()}|" method="post">
+                <input name="checkbox" type="checkbox" th:checked="${todo.getCheckbox()}" onchange="this.form.submit()">
+            </form>
+        </td>
+        <td>
+            <form th:action="|/todo/delete/${todo.getId()}|" method="post">
+                <button  class="btn btn-dark">Delete</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
